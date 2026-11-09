@@ -1,0 +1,38 @@
+{
+  "actorSpecification": 1,
+  "fields": {},
+  "views": {
+    "overview": {
+      "title": "Tenders",
+      "transformation": {
+        "fields": [
+          "tenderID",
+          "title",
+          "status",
+          "buyerName",
+          "buyerRegion",
+          "valueAmount",
+          "valueCurrency",
+          "tenderEndDate",
+          "cpvCodes",
+          "url"
+        ]
+      },
+      "display": {
+        "component": "table",
+        "properties": {
+          "tenderID": { "label": "Tender ID", "format": "text" },
+          "title": { "label": "Title", "format": "text" },
+          "status": { "label": "Status", "format": "text" },
+          "buyerName": { "label": "Buyer", "format": "text" },
+          "buyerRegion": { "label": "Region", "format": "text" },
+          "valueAmount": { "label": "Value", "format": "number" },
+          "valueCurrency": { "label": "Currency", "format": "text" },
+          "tenderEndDate": { "label": "Bids until", "format": "date" },
+          "cpvCodes": { "label": "CPV", "format": "array" },
+          "url": { "label": "Link", "format": "link" }
+        }
+      }
+    }
+  }
+}

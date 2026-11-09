@@ -1,0 +1,17 @@
+{
+  "actorSpecification": 1,
+  "name": "prozorro-tenders-scraper",
+  "title": "Prozorro Tenders Scraper (Ukraine public procurement)",
+  "description": "Extracts public tenders from Prozorro, Ukraine's national procurement system, via its open API. Filter by date, keywords, CPV (ДК 021) codes, region, status and budget. Clean JSON/CSV/Excel output with buyer, value, deadlines and items.",
+  "version": "0.1",
+  "buildTag": "latest",
+  "meta": {
+    "templateId": "python-start"
+  },
+  "input": "./input_schema.json",
+  "dockerfile": "../Dockerfile",
+  "readme": "../README.md",
+  "storages": {
+    "dataset": "./dataset_schema.json"
+  }
+}

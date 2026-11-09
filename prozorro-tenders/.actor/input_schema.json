@@ -1,0 +1,108 @@
+{
+  "title": "Prozorro Tenders Scraper input",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "dateFrom": {
+      "title": "Modified since",
+      "type": "string",
+      "description": "Only tenders modified on or after this date (YYYY-MM-DD). Default: 1 day before the run. The Prozorro feed is ordered by modification time, so this is the main way to limit how much is scanned.",
+      "editor": "datepicker",
+      "nullable": true
+    },
+    "dateTo": {
+      "title": "Modified until",
+      "type": "string",
+      "description": "Optional upper bound (YYYY-MM-DD, inclusive).",
+      "editor": "datepicker",
+      "nullable": true
+    },
+    "keywords": {
+      "title": "Keywords",
+      "type": "array",
+      "description": "Case-insensitive words or phrases. A tender matches if ANY keyword appears in its title or item descriptions. Ukrainian and English both work (titles are usually Ukrainian).",
+      "editor": "stringList",
+      "prefill": ["ноутбук", "сервер"],
+      "nullable": true
+    },
+    "cpvPrefixes": {
+      "title": "CPV / ДК 021 code prefixes",
+      "type": "array",
+      "description": "Keep tenders whose items have a classification code starting with any of these prefixes, e.g. \"30\" (computers), \"33\" (medical), \"45\" (construction), \"72\" (IT services).",
+      "editor": "stringList",
+      "nullable": true
+    },
+    "regions": {
+      "title": "Buyer regions",
+      "type": "array",
+      "description": "Substring match on the buyer's address region, e.g. \"Київ\", \"Львівська\". Leave empty for all of Ukraine.",
+      "editor": "stringList",
+      "nullable": true
+    },
+    "statuses": {
+      "title": "Tender statuses",
+      "type": "array",
+      "description": "Prozorro statuses to keep. Common: active.enquiries, active.tendering, active.auction, active.qualification, active.awarded, complete, cancelled, unsuccessful.",
+      "editor": "select",
+      "items": {
+        "type": "string",
+        "enum": ["active.enquiries", "active.tendering", "active.pre-qualification", "active.auction", "active.qualification", "active.awarded", "complete", "cancelled", "unsuccessful", "draft"],
+        "enumTitles": ["active.enquiries", "active.tendering", "active.pre-qualification", "active.auction", "active.qualification", "active.awarded", "complete", "cancelled", "unsuccessful", "draft"]
+      },
+      "prefill": ["active.enquiries", "active.tendering"],
+      "nullable": true
+    },
+    "procurementMethodTypes": {
+      "title": "Procurement method types",
+      "type": "array",
+      "description": "Optional filter, e.g. aboveThreshold, belowThreshold, reporting, negotiation, priceQuotation. Leave empty for all.",
+      "editor": "stringList",
+      "nullable": true
+    },
+    "minValue": {
+      "title": "Minimum expected value (UAH)",
+      "type": "integer",
+      "description": "Skip tenders with an expected value below this amount.",
+      "minimum": 0,
+      "nullable": true
+    },
+    "maxValue": {
+      "title": "Maximum expected value (UAH)",
+      "type": "integer",
+      "description": "Skip tenders with an expected value above this amount.",
+      "minimum": 0,
+      "nullable": true
+    },
+    "maxItems": {
+      "title": "Max tenders to output",
+      "type": "integer",
+      "description": "Stop after this many matching tenders have been saved.",
+      "default": 200,
+      "minimum": 1,
+      "maximum": 50000
+    },
+    "maxScanned": {
+      "title": "Max tenders to scan",
+      "type": "integer",
+      "description": "Safety limit on how many tender records are fetched from the feed (each one is an API request). Raise it for wide date ranges.",
+      "default": 5000,
+      "minimum": 1,
+      "maximum": 500000
+    },
+    "includeDocuments": {
+      "title": "Include document links",
+      "type": "boolean",
+      "description": "Add the list of tender documents (title, URL, format) to each record.",
+      "default": false
+    },
+    "concurrency": {
+      "title": "Concurrency",
+      "type": "integer",
+      "description": "Parallel requests to the Prozorro API. 8 is safe; higher values may get rate-limited.",
+      "default": 8,
+      "minimum": 1,
+      "maximum": 20
+    }
+  },
+  "required": []
+}
