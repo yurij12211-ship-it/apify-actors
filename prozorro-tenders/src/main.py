@@ -1,5 +1,9 @@
 """Prozorro Tenders Scraper.
 
+Pricing: pay-per-event via the platform's built-in events (apify-actor-start,
+apify-default-dataset-item), so every record pushed to the default dataset is charged
+automatically. No custom charge calls are needed.
+
 Walks the public Prozorro feed (ordered by dateModified), fetches each tender,
 applies the user's filters and pushes normalized records to the default dataset.
 
@@ -165,13 +169,6 @@ async def _fetch_json(client: httpx.AsyncClient, url: str, params: dict | None =
     return None
 
 
-async def _charge(event: str, count: int = 1) -> None:
-    """Charge a pay-per-event; silently skip when the run is not PPE (e.g. local)."""
-    try:
-        await Actor.charge(event_name=event, count=count)
-    except Exception as exc:  # noqa: BLE001
-        Actor.log.debug(f"charge skipped ({event}): {exc}")
-
 
 async def main() -> None:
     async with Actor:
@@ -197,7 +194,6 @@ async def main() -> None:
             f"Scanning Prozorro feed from {date_from.isoformat()} "
             f"to {date_to.isoformat() if date_to else 'now'}; filters={ {k: (sorted(v) if isinstance(v, set) else v) for k, v in filters.items()} }"
         )
-        await _charge("actor-start")
 
         headers = {"User-Agent": "prozorro-tenders-scraper/0.1 (Apify Actor; public data only)"}
         limits = httpx.Limits(max_connections=concurrency, max_keepalive_connections=concurrency)
@@ -258,7 +254,6 @@ async def main() -> None:
                     room = max_items - saved
                     matched = matched[:room]
                     await Actor.push_data(matched)
-                    await _charge("tender", len(matched))
                     saved += len(matched)
 
                 Actor.log.info(f"scanned={scanned} saved={saved} last_modified={entries[-1]['dateModified']}")

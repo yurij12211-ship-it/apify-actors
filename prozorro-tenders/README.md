@@ -64,7 +64,7 @@ Only public data from the official API is used. No login, no scraping of the web
 
 ## Pricing
 
-Pay per event: a small fee per tender saved to the dataset plus a start fee per run. You only pay for matching tenders, not for everything scanned. Typical daily alert runs (a few dozen matches) cost cents. The free Apify plan covers hundreds of tenders a month.
+Pay per event: $2.00 per 1,000 tenders saved to the dataset plus $0.01 per run; platform usage is included. You only pay for matching tenders, not for everything scanned, so a daily alert with a few dozen matches costs about 10 cents. The free Apify plan credit covers roughly 2,000 tenders a month.
 
 ## Tips
 
