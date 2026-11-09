@@ -1,0 +1,19 @@
+{
+  "actorOutputSchemaVersion": 1,
+  "title": "Prozorro Tenders Scraper output",
+  "description": "Normalized tender records in the default dataset plus a run summary in the key-value store.",
+  "properties": {
+    "tenders": {
+      "type": "string",
+      "title": "Tenders",
+      "description": "All matching tenders as JSON (add ?format=csv or ?format=xlsx for other formats).",
+      "template": "{{links.apiDefaultDatasetUrl}}/items"
+    },
+    "summary": {
+      "type": "string",
+      "title": "Run summary",
+      "description": "Counts of scanned and saved tenders and the date range used.",
+      "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+    }
+  }
+}
